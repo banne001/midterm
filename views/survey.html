@@ -10,9 +10,9 @@
     <h1>Midterm Surveys</h1>
     <form action="#" method="post" class="form-horizontal">
         <div class="form-group">
-            <label for="name" class="col-sm-2 control-label">Name</label>
+            <label for="fname" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-4">
-                <input class="form-control" type="text" name="name" id="name" name="{{ @name }}">
+                <input class="form-control" type="text" name="fname" id="fname" value="{{ @name }}">
                 <check if="{{ isset(@errors['name']) }}">
                     {{ @errors['name'] }}
                 </check>
@@ -21,10 +21,11 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Select condiments</label>
             <div class="col-sm-4">
-                <repeat group="{{ @survey }}" value="{{ @item }}">
+                <repeat group="{{ @surveys }}" value="{{ @item }}">
                     <label><input type="checkbox"
                                   name="survey[]"
-                                  value="{{ @item }}"> {{ ucfirst(@item) }}</label><br>
+                                  value="{{ @item }}">
+                        {{ ucfirst(@item) }}</label><br>
                 </repeat>
                 <check if="{{ isset(@errors['survey']) }}">
                     {{ @errors['survey'] }}

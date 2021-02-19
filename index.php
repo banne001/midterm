@@ -18,11 +18,11 @@ $f3->route('GET /', function () {
     echo $view->render('views/home.html');
 });
 $f3->route('GET|POST /survey', function ($f3) {
-    $f3->set("survey", array('This midterm is easy', 'This midterm is hard', 'I like midterms', 'Today is Monday'));
+    $f3->set("surveys", array('This midterm is easy', 'This midterm is hard', 'I like midterms', 'Today is Monday'));
 
     if($_SERVER['REQUEST_METHOD']=='POST'){
-        $name = trim($_POST['name']);
-        $survey = $_POST['survey'];
+        $name = trim($_POST['fname']);
+
 
         //If the data is valid --> Store in session
         if(!empty($name) && ctype_alpha($name)) {
@@ -31,7 +31,8 @@ $f3->route('GET|POST /survey', function ($f3) {
             $f3->set('errors["name"]', "Name cannot be blank and must only contain characters");
         }
 
-        if(isset($survey)) {
+        if(isset($_POST['survey'])) {
+            $survey = $_POST['survey'];
             $_SESSION['survey'] = implode(", ", $survey);
         } else {
             $f3->set('errors["survey"]', "Select a meal");
@@ -40,7 +41,8 @@ $f3->route('GET|POST /survey', function ($f3) {
             $f3->reroute("/summary");
         }
     }
-
+    $f3->set('name', isset($name) ? $name: "");
+    $f3->set('survey', isset($survey) ? $survey : "");
 
     $view = new Template();
 
